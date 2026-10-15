@@ -91,6 +91,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -110,17 +111,38 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Password -->
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Password Header Row with Forgot Password link -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:textSize="13.5sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/navy_primary"
-                    android:layout_marginBottom="6dp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Password"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/navy_primary"/>
+
+                    <TextView
+                        android:id="@+id/tvForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot Password?"
+                        android:textSize="12.5sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/water_blue"
+                        android:clickable="true"
+                        android:focusable="true"/>
+
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -151,6 +173,24 @@
                     android:textStyle="bold"
                     app:cornerRadius="14dp"
                     app:backgroundTint="@color/navy_primary"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Official Google SSO Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoogleSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="Sign in with Google"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="14dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/card_stroke"
+                    android:textColor="@color/text_primary"
+                    app:icon="@drawable/ic_google_logo"
+                    app:iconTint="@null"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
                     android:layout_marginBottom="16dp"/>
 
                 <!-- Divider -->
@@ -170,9 +210,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="  OR  "
+                        android:text="  NEW TO CLEANFLOW?  "
                         android:textColor="@color/text_muted"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textStyle="bold"/>
 
                     <View

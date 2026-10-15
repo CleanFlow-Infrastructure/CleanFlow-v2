@@ -65,6 +65,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -95,6 +96,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -125,6 +127,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -155,6 +158,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -170,7 +174,7 @@
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Minimum 8 characters"
+                        android:hint="Min 8 chars with letters &amp; numbers"
                         android:inputType="textPassword"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -186,6 +190,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -217,6 +222,24 @@
                     app:cornerRadius="14dp"
                     app:backgroundTint="@color/navy_primary"
                     android:layout_marginBottom="12dp"/>
+
+                <!-- Official Google SSO Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoogleSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:text="Sign up with Google"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="14dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    app:strokeColor="@color/card_stroke"
+                    android:textColor="@color/text_primary"
+                    app:icon="@drawable/ic_google_logo"
+                    app:iconTint="@null"
+                    app:iconGravity="textStart"
+                    app:iconPadding="10dp"
+                    android:layout_marginBottom="16dp"/>
 
                 <!-- Back to Login -->
                 <com.google.android.material.button.MaterialButton

@@ -9,6 +9,8 @@ class SessionManager(context: Context) {
     companion object {
         private const val KEY_USER_ID = "user_id"
         private const val KEY_USER_EMAIL = "user_email"
+        private const val DEFAULT_USER_ID = "user_demo_101"
+        private const val DEFAULT_USER_EMAIL = "sipho.ndlovu@cleanflow.org"
     }
 
     fun saveSession(userId: String, email: String) {
@@ -19,12 +21,13 @@ class SessionManager(context: Context) {
         }
     }
 
-    fun getUserId(): String? = prefs.getString(KEY_USER_ID, null)
-    fun getUserEmail(): String? = prefs.getString(KEY_USER_EMAIL, null)
+    fun getUserId(): String = prefs.getString(KEY_USER_ID, DEFAULT_USER_ID) ?: DEFAULT_USER_ID
+
+    fun getUserEmail(): String = prefs.getString(KEY_USER_EMAIL, DEFAULT_USER_EMAIL) ?: DEFAULT_USER_EMAIL
 
     fun logout() {
         prefs.edit().clear().apply()
     }
 
-    fun isLoggedIn(): Boolean = getUserId() != null
+    fun isLoggedIn(): Boolean = prefs.contains(KEY_USER_ID)
 }
