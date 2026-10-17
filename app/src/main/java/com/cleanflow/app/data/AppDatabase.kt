@@ -163,6 +163,7 @@ abstract class AppDatabase : RoomDatabase() {
                         communityName = "Mokopane Section 4",
                         latitude = -24.1833,
                         longitude = 29.0167,
+                        imageUrl = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&auto=format&fit=crop",
                         status = "Pending",
                         submittedAt = now - (2 * 3600 * 1000)
                     ),
@@ -175,6 +176,7 @@ abstract class AppDatabase : RoomDatabase() {
                         communityName = "Mokopane Central",
                         latitude = -24.1850,
                         longitude = 29.0200,
+                        imageUrl = "https://images.unsplash.com/photo-1541252260730-0412e8e2108e?w=600&auto=format&fit=crop",
                         status = "Assigned",
                         submittedAt = now - (18 * 3600 * 1000)
                     ),
@@ -187,6 +189,7 @@ abstract class AppDatabase : RoomDatabase() {
                         communityName = "Mokopane Section 2",
                         latitude = -24.1800,
                         longitude = 29.0120,
+                        imageUrl = "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format&fit=crop",
                         status = "Resolved",
                         submittedAt = now - (3 * 86400 * 1000)
                     ),
@@ -313,6 +316,15 @@ abstract class AppDatabase : RoomDatabase() {
                 )
 
                 sampleReports.forEach { db.reportDao().upsertReport(it) }
+            } else if (sampleReport.imageUrl.isEmpty()) {
+                // Retrofit image URLs if previously seeded without imageUrl
+                db.reportDao().upsertReport(sampleReport.copy(imageUrl = "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=600&auto=format&fit=crop"))
+
+                val r2 = db.reportDao().getReportById("rep_102")
+                if (r2 != null) db.reportDao().upsertReport(r2.copy(imageUrl = "https://images.unsplash.com/photo-1541252260730-0412e8e2108e?w=600&auto=format&fit=crop"))
+
+                val r3 = db.reportDao().getReportById("rep_103")
+                if (r3 != null) db.reportDao().upsertReport(r3.copy(imageUrl = "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=600&auto=format&fit=crop"))
             }
         }
     }

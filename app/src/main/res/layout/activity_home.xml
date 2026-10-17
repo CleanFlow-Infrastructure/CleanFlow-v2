@@ -72,46 +72,92 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- Primary Call to Action Card -->
+                <!-- Professional Call to Action Card with Real Photo Background -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardReportIssue"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="180dp"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
                     android:layout_marginBottom="20dp">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_water_card"
-                        android:orientation="vertical"
-                        android:padding="24dp">
+                        android:layout_height="match_parent">
 
+                        <!-- Real Photo Background Image -->
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/ic_water_drop_white"
-                            android:layout_marginBottom="12dp"
-                            android:contentDescription="Water Drop Icon"/>
+                            android:id="@+id/ivHeroBg"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_water_fetch"
+                            android:contentDescription="Rural Water Background"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Report Infrastructure Issue"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:textStyle="bold"/>
+                        <!-- Gradient Overlay Scrim for Text Legibility -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/bg_gradient_header"
+                            android:alpha="0.80"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Instantly log water leaks, broken pumps, or sanitation issues in your community."
-                            android:textColor="@color/water_blue_bg"
-                            android:textSize="13.5sp"
-                            android:layout_marginTop="6dp"/>
+                        <!-- Hero Text Content -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="bottom"
+                            android:padding="20dp">
 
-                    </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:background="@drawable/badge_tip_category"
+                                android:backgroundTint="@color/water_blue"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:layout_marginBottom="8dp">
+
+                                <ImageView
+                                    android:layout_width="14dp"
+                                    android:layout_height="14dp"
+                                    android:src="@drawable/ic_water_drop_white"
+                                    android:layout_marginEnd="6dp"
+                                    android:contentDescription="Water Icon"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="COMMUNITY DISPATCH"
+                                    android:textColor="@color/white"
+                                    android:textSize="10.5sp"
+                                    android:textStyle="bold"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Report Infrastructure Issue"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Instantly log pipe leaks, broken boreholes, or tank faults in your area."
+                                android:textColor="@color/water_blue_bg"
+                                android:textSize="12.5sp"
+                                android:layout_marginTop="2dp"/>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
 
                 </androidx.cardview.widget.CardView>
 

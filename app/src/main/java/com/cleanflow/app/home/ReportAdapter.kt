@@ -1,9 +1,11 @@
 package com.cleanflow.app.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.cleanflow.app.R
 import com.cleanflow.app.databinding.ItemReportBinding
 import com.cleanflow.app.models.Report
@@ -35,6 +37,26 @@ class ReportAdapter(private val reports: List<Report>) :
         }
         holder.binding.tvStatus.setBackgroundResource(badgeRes)
         holder.binding.tvStatus.setTextColor(ContextCompat.getColor(holder.binding.root.context, textColorRes))
+
+        // Image Evidence Thumbnail (Supports both local drawable resources and web URLs)
+        if (!report.imageUrl.isNullOrEmpty()) {
+            val context = holder.binding.root.context
+            val resId = context.resources.getIdentifier(report.imageUrl, "drawable", context.packageName)
+            holder.binding.cardImageContainer.visibility = View.VISIBLE
+            if (resId != 0) {
+                holder.binding.ivReportImage.load(resId) {
+                    crossfade(true)
+                }
+            } else {
+                holder.binding.ivReportImage.load(report.imageUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_water_drop)
+                    error(R.drawable.ic_water_drop)
+                }
+            }
+        } else {
+            holder.binding.cardImageContainer.visibility = View.GONE
+        }
     }
 
     override fun getItemCount() = reports.size

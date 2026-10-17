@@ -1,5 +1,6 @@
 package com.cleanflow.app.reports
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.cleanflow.app.R
 import com.cleanflow.app.auth.SessionManager
 import com.cleanflow.app.data.AppDatabase
@@ -38,6 +40,11 @@ class MyReportsActivity : AppCompatActivity() {
         binding.rvMyReports.layoutManager = LinearLayoutManager(this)
 
         binding.btnBack.setOnClickListener { finish() }
+
+        // Create new report button click from empty state
+        binding.btnCreateReport.setOnClickListener {
+            startActivity(Intent(this, ReportIssueActivity::class.java))
+        }
 
         // Filter buttons
         setupFilterButtons()
@@ -79,27 +86,45 @@ class MyReportsActivity : AppCompatActivity() {
         updateList(filtered)
     }
 
+    private fun updateSummaryKpis(reports: List<Report>) {
+        val total = reports.size
+        val pending = reports.count { it.status == "Pending" || it.status == "Assigned" }
+        val resolved = reports.count { it.status == "Resolved" }
+
+        binding.tvTotalCount.text = total.toString()
+        binding.tvPendingCount.text = pending.toString()
+        binding.tvResolvedCount.text = resolved.toString()
+    }
+
     private fun updateList(reports: List<Report>) {
         if (reports.isEmpty()) {
             binding.rvMyReports.visibility = View.GONE
             binding.layoutEmpty.visibility = View.VISIBLE
-            binding.tvReportCount.text = "No reports found"
+            binding.tvReportCount.text = "No reports found for '$currentFilter'"
         } else {
             binding.rvMyReports.visibility = View.VISIBLE
             binding.layoutEmpty.visibility = View.GONE
-            binding.tvReportCount.text = "${reports.size} report(s) found"
+            binding.tvReportCount.text = "Showing ${reports.size} report(s) • $currentFilter"
             binding.rvMyReports.adapter = MyReportsAdapter(reports)
         }
     }
 
     private fun loadMyReports() {
-        val userId = sessionManager.getUserId() ?: return
-        binding.tvReportCount.text = "Loading reports..."
+        val userId = sessionManager.getUserId()
+        binding.tvReportCount.text = "Loading community reports..."
 
         lifecycleScope.launch {
+            AppDatabase.populateSampleDataIfEmpty(db)
+
             allReports = db.reportDao().getReportsByUserId(userId)
+            updateSummaryKpis(allReports)
             applyFilter()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadMyReports()
     }
 }
 
@@ -120,7 +145,7 @@ class MyReportsAdapter(private val reports: List<Report>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val report = reports[position]
         holder.binding.tvIssueType.text = report.issueType
-        holder.binding.tvCommunity.text = "${report.communityName} • ${report.severity} severity"
+        holder.binding.tvCommunity.text = report.communityName
         holder.binding.tvStatus.text = report.status
 
         val (badgeRes, textColorRes) = when (report.status) {
@@ -130,6 +155,43 @@ class MyReportsAdapter(private val reports: List<Report>) :
         }
         holder.binding.tvStatus.setBackgroundResource(badgeRes)
         holder.binding.tvStatus.setTextColor(ContextCompat.getColor(holder.binding.root.context, textColorRes))
+
+        // Image Evidence Thumbnail (Supports local drawable assets and web URLs)
+        if (!report.imageUrl.isNullOrEmpty()) {
+            val context = holder.binding.root.context
+            val resId = context.resources.getIdentifier(report.imageUrl, "drawable", context.packageName)
+            holder.binding.cardImageContainer.visibility = View.VISIBLE
+            if (resId != 0) {
+                holder.binding.ivReportImage.load(resId) {
+                    crossfade(true)
+                }
+            } else {
+                holder.binding.ivReportImage.load(report.imageUrl) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_water_drop)
+                    error(R.drawable.ic_water_drop)
+                }
+            }
+        } else {
+            holder.binding.cardImageContainer.visibility = View.GONE
+        }
+
+        // Severity badge
+        holder.binding.tvSeverityBadge.text = "${report.severity} Priority"
+        val severityBg = when (report.severity) {
+            "High" -> ContextCompat.getColor(holder.binding.root.context, R.color.severity_high)
+            "Medium" -> ContextCompat.getColor(holder.binding.root.context, R.color.severity_medium)
+            else -> ContextCompat.getColor(holder.binding.root.context, R.color.severity_low)
+        }
+        holder.binding.tvSeverityBadge.backgroundTintList = android.content.res.ColorStateList.valueOf(severityBg)
+
+        // Location text
+        val locationText = if (report.latitude != 0.0 || report.longitude != 0.0) {
+            "${String.format("%.4f", report.latitude)}° S, ${String.format("%.4f", report.longitude)}° E"
+        } else {
+            "Location Captured"
+        }
+        holder.binding.tvLocation.text = locationText
     }
 
     override fun getItemCount() = reports.size
