@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.cleanflow.app.R
 import com.cleanflow.app.auth.SessionManager
 import com.cleanflow.app.data.AppDatabase
@@ -65,17 +66,21 @@ class HomeActivity : AppCompatActivity() {
 
         binding.rvReports.layoutManager = LinearLayoutManager(this)
 
+        // Load real local photo into hero card background (100% Offline)
+        binding.ivHeroBg.load(R.drawable.hero_water) {
+            crossfade(true)
+        }
+
         // Setup Water Tips
         setupWaterTips()
 
         // Load user name
         val userId = sessionManager.getUserId()
-        if (userId != null) {
-            lifecycleScope.launch {
-                val user = db.userDao().getUserById(userId)
-                if (user != null) {
-                    binding.tvGreeting.text = "Hello, ${user.fullName}"
-                }
+        lifecycleScope.launch {
+            AppDatabase.populateSampleDataIfEmpty(db)
+            val user = db.userDao().getUserById(userId)
+            if (user != null) {
+                binding.tvGreeting.text = "Hello, ${user.fullName}"
             }
         }
 
@@ -151,9 +156,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadReports() {
-        val userId = sessionManager.getUserId() ?: return
+        val userId = sessionManager.getUserId()
 
         lifecycleScope.launch {
+            AppDatabase.populateSampleDataIfEmpty(db)
+
             val reports = db.reportDao().getReportsByUserId(userId)
             if (reports.isEmpty()) {
                 binding.rvReports.visibility = View.GONE
