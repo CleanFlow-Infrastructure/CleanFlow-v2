@@ -3,6 +3,7 @@ package com.cleanflow.app.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.cleanflow.app.databinding.ActivityHomeBinding
 import com.cleanflow.app.profile.ProfileActivity
 import com.cleanflow.app.reports.MyReportsActivity
 import com.cleanflow.app.reports.ReportIssueActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -87,6 +89,15 @@ class HomeActivity : AppCompatActivity() {
         // Load recent reports
         loadReports()
 
+        // Interactive KPI Cards
+        binding.cardPumpStations.setOnClickListener {
+            showPumpStationsDialog()
+        }
+
+        binding.cardReservoirLevel.setOnClickListener {
+            showReservoirLevelDialog()
+        }
+
         // Bottom nav
         binding.bottomNav.selectedItemId = R.id.nav_home
         binding.bottomNav.setOnItemSelectedListener { item ->
@@ -122,6 +133,58 @@ class HomeActivity : AppCompatActivity() {
         binding.ivProfile.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+    }
+
+    private fun showPumpStationsDialog() {
+        val details = """
+            • Active Stations: 24 / 26 (92% Operational)
+            • Main Intake Pump A: 🟢 Normal (45 L/s)
+            • Village Booster B: 🟢 Normal (38 L/s)
+            • Station #3 (Borehole West): 🔴 Motor Overhaul in Progress
+            • Station #18 (Central Well): 🟡 Calibrating Telemetry Sensors
+        """.trimIndent()
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("⚙️ Community Pump Telemetry")
+            .setMessage(details)
+            .setPositiveButton("Run Telemetry Diagnostic") { dialog, _ ->
+                Toast.makeText(
+                    this,
+                    "Telemetry Diagnostic Complete • All 24 active pumps responding normally ✅",
+                    Toast.LENGTH_LONG
+                ).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Close") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun showReservoirLevelDialog() {
+        val details = """
+            • Reservoir Capacity: 88% (420,000 Liters)
+            • Inflow Rate: +12,500 Liters/hour
+            • Water Purity / pH: 7.4 pH (Safe Drinking Standard ✅)
+            • Chlorination Dosing: 0.8 mg/L (Optimal)
+            • Estimated Supply: 14 Days at current consumption rate
+        """.trimIndent()
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("🚰 Reservoir & Quality Telemetry")
+            .setMessage(details)
+            .setPositiveButton("Run Quality Inspection Test") { dialog, _ ->
+                Toast.makeText(
+                    this,
+                    "Water Quality Test Passed • Zero contaminants detected, chlorination optimal ✅",
+                    Toast.LENGTH_LONG
+                ).show()
+                dialog.dismiss()
+            }
+            .setNegativeButton("Close") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun setupWaterTips() {

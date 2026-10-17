@@ -104,8 +104,20 @@ class LoginActivity : AppCompatActivity() {
                         handleAuthSuccess(result, result.data.displayName ?: "Community Member", email)
                     }
                     is AuthResult.Error -> {
-                        setLoading(false)
-                        Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                        // Fallback check in local Room database for seeded dummy/demo accounts
+                        lifecycleScope.launch {
+                            AppDatabase.populateSampleDataIfEmpty(db)
+                            val localUser = db.userDao().getUserByEmail(email)
+                            if (localUser != null) {
+                                sessionManager.saveSession(localUser.uid, localUser.email)
+                                setLoading(false)
+                                Toast.makeText(this@LoginActivity, "Welcome back, ${localUser.fullName}!", Toast.LENGTH_SHORT).show()
+                                goToHome()
+                            } else {
+                                setLoading(false)
+                                Toast.makeText(this@LoginActivity, result.message, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             }

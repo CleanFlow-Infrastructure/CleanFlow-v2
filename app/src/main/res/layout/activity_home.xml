@@ -91,7 +91,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/img_water_fetch"
+                            android:src="@drawable/hero_water"
                             android:contentDescription="Rural Water Background"/>
 
                         <!-- Gradient Overlay Scrim for Text Legibility -->
@@ -170,11 +170,15 @@
 
                     <!-- Stat 1: Pump Stations -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPumpStations"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="3dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         android:layout_marginEnd="8dp">
 
                         <LinearLayout
@@ -238,11 +242,15 @@
 
                     <!-- Stat 2: Reservoir Level -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardReservoirLevel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="3dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
                         android:layout_marginStart="8dp">
 
                         <LinearLayout
