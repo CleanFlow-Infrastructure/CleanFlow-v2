@@ -68,8 +68,13 @@ class HomeActivity : AppCompatActivity() {
 
         binding.rvReports.layoutManager = LinearLayoutManager(this)
 
-        // Load real local photo into hero card background (100% Offline)
+        // Load real local photo into hero card background
         binding.ivHeroBg.load(R.drawable.hero_water) {
+            crossfade(true)
+        }
+
+        // Load water_drop_tips picture on Water Tips card
+        binding.ivTipPhoto.load(R.drawable.water_drop_tips) {
             crossfade(true)
         }
 

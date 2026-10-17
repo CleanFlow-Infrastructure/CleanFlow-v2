@@ -59,9 +59,10 @@
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:src="@mipmap/logo"
-                    android:background="@drawable/circle_bg"
-                    android:padding="2dp"
-                    android:contentDescription="Profile Icon"/>
+                    android:background="@drawable/bg_logo_rounded"
+                    android:padding="3dp"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="Profile Logo"/>
 
             </LinearLayout>
 
@@ -72,11 +73,11 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
-                <!-- Professional Call to Action Card with Real Photo Background -->
+                <!-- Clear Hero Call to Action Card with Real Photo Background -->
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardReportIssue"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="190dp"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="4dp"
                     android:layout_marginBottom="20dp">
@@ -94,12 +95,11 @@
                             android:src="@drawable/hero_water"
                             android:contentDescription="Rural Water Background"/>
 
-                        <!-- Gradient Overlay Scrim for Text Legibility -->
+                        <!-- Subtle Bottom Scrim Gradient Overlay for Crisp Legibility -->
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/bg_gradient_header"
-                            android:alpha="0.80"/>
+                            android:background="@drawable/bg_bottom_scrim"/>
 
                         <!-- Hero Text Content -->
                         <LinearLayout
@@ -351,85 +351,108 @@
 
                     </LinearLayout>
 
-                    <!-- Tip Card -->
+                    <!-- Water Tips Card with Real Photo water_drop_tips.jpg as Background -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardWaterTip"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         app:cardCornerRadius="18dp"
                         app:cardElevation="3dp">
 
-                        <LinearLayout
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_tip_card"
-                            android:orientation="vertical"
-                            android:padding="20dp">
+                            android:layout_height="match_parent">
 
+                            <!-- Real Photo Background Image -->
+                            <ImageView
+                                android:id="@+id/ivTipPhoto"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/water_drop_tips"
+                                android:contentDescription="Water Drop Tip Photo Background"/>
+
+                            <!-- Gradient Overlay Scrim for Crisp Text Legibility -->
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/bg_gradient_header"
+                                android:alpha="0.82"/>
+
+                            <!-- Tip Text Overlay Content -->
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
                                 android:gravity="center_vertical"
-                                android:layout_marginBottom="10dp">
+                                android:padding="20dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="10dp">
+
+                                    <TextView
+                                        android:id="@+id/tvTipCategory"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="CONSERVATION"
+                                        android:textSize="11sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/white"
+                                        android:background="@drawable/badge_tip_category"
+                                        android:paddingStart="12dp"
+                                        android:paddingEnd="12dp"
+                                        android:paddingTop="5dp"
+                                        android:paddingBottom="5dp"/>
+
+                                    <View
+                                        android:layout_width="0dp"
+                                        android:layout_height="1dp"
+                                        android:layout_weight="1"/>
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:src="@drawable/ic_water_drop_white"
+                                        android:layout_marginEnd="6dp"
+                                        android:contentDescription="Water Icon"/>
+
+                                    <TextView
+                                        android:id="@+id/tvTipCounter"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="1 of 4"
+                                        android:textSize="12.5sp"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/water_blue_bg"/>
+
+                                </LinearLayout>
 
                                 <TextView
-                                    android:id="@+id/tvTipCategory"
+                                    android:id="@+id/tvTipTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="CONSERVATION"
-                                    android:textSize="11sp"
+                                    android:text="Report Pipe Leaks Early"
+                                    android:textSize="17sp"
                                     android:textStyle="bold"
                                     android:textColor="@color/white"
-                                    android:background="@drawable/badge_tip_category"
-                                    android:paddingStart="12dp"
-                                    android:paddingEnd="12dp"
-                                    android:paddingTop="5dp"
-                                    android:paddingBottom="5dp"/>
-
-                                <View
-                                    android:layout_width="0dp"
-                                    android:layout_height="1dp"
-                                    android:layout_weight="1"/>
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_water_drop"
-                                    android:layout_marginEnd="6dp"
-                                    android:contentDescription="Water Icon"/>
+                                    android:layout_marginBottom="6dp"/>
 
                                 <TextView
-                                    android:id="@+id/tvTipCounter"
+                                    android:id="@+id/tvTipDescription"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1 of 4"
-                                    android:textSize="12.5sp"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/water_blue"/>
+                                    android:text="A single dripping tap or broken pipe can waste over 100 liters of water daily. Reporting leaks early saves vital water for your entire community."
+                                    android:textSize="13.5sp"
+                                    android:textColor="@color/water_blue_bg"
+                                    android:lineSpacingExtra="3dp"/>
 
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/tvTipTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Report Pipe Leaks Early"
-                                android:textSize="16.5sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/navy_primary"
-                                android:layout_marginBottom="6dp"/>
-
-                            <TextView
-                                android:id="@+id/tvTipDescription"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="A single dripping tap or broken pipe can waste over 100 liters of water daily. Reporting leaks early saves vital water for your entire community."
-                                android:textSize="13.5sp"
-                                android:textColor="#1E3A8A"
-                                android:lineSpacingExtra="3dp"/>
-
-                        </LinearLayout>
+                        </FrameLayout>
 
                     </androidx.cardview.widget.CardView>
 
@@ -523,6 +546,7 @@
         app:elevation="12dp"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/nav_item_color"
-        app:itemTextColor="@color/nav_item_color"/>
+        app:itemTextColor="@color/nav_item_color"
+        app:itemActiveIndicatorStyle="@null"/>
 
 </LinearLayout>
