@@ -231,6 +231,69 @@
 
             </androidx.cardview.widget.CardView>
 
+            <!-- Help & Support Center Card -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardHelpSupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/card_bg"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_water_drop"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Help Icon"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Help &amp; Community Support"
+                            android:textSize="15.5sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/navy_primary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="System guides, FAQ &amp; 24/7 hotline"
+                            android:textSize="12.5sp"
+                            android:textColor="@color/text_muted"
+                            android:layout_marginTop="2dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="➔"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/water_blue"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
             <!-- Edit Personal Info Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

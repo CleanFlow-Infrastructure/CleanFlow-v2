@@ -55,6 +55,18 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/btnHelp"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/ic_water_drop_white"
+                    android:background="@drawable/bg_logo_rounded"
+                    android:padding="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Help Center Icon"/>
+
+                <ImageView
                     android:id="@+id/ivProfile"
                     android:layout_width="44dp"
                     android:layout_height="44dp"

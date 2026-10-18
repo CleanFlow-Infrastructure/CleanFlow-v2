@@ -13,6 +13,7 @@ import com.cleanflow.app.auth.ValidationResult
 import com.cleanflow.app.auth.Validators
 import com.cleanflow.app.data.AppDatabase
 import com.cleanflow.app.databinding.ActivityProfileBinding
+import com.cleanflow.app.help.HelpSupportActivity
 import com.cleanflow.app.models.User
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -38,6 +39,11 @@ class ProfileActivity : AppCompatActivity() {
 
         loadProfile()
         loadStats()
+
+        // Help & Support Center
+        binding.cardHelpSupport.setOnClickListener {
+            startActivity(Intent(this, HelpSupportActivity::class.java))
+        }
 
         // Save Profile Changes
         binding.btnSaveProfile.setOnClickListener {

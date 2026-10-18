@@ -12,6 +12,7 @@ import com.cleanflow.app.R
 import com.cleanflow.app.auth.SessionManager
 import com.cleanflow.app.data.AppDatabase
 import com.cleanflow.app.databinding.ActivityHomeBinding
+import com.cleanflow.app.help.HelpSupportActivity
 import com.cleanflow.app.profile.ProfileActivity
 import com.cleanflow.app.reports.MyReportsActivity
 import com.cleanflow.app.reports.ReportIssueActivity
@@ -132,6 +133,11 @@ class HomeActivity : AppCompatActivity() {
         // View all click
         binding.tvViewAll.setOnClickListener {
             startActivity(Intent(this, MyReportsActivity::class.java))
+        }
+
+        // Help button click
+        binding.btnHelp.setOnClickListener {
+            startActivity(Intent(this, HelpSupportActivity::class.java))
         }
 
         // Profile icon click
