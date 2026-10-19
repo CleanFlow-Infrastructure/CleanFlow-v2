@@ -1,6 +1,6 @@
 package com.cleanflow.app.auth
 
-import android.util.Patterns
+import java.util.regex.Pattern
 
 sealed class ValidationResult {
     object Success : ValidationResult()
@@ -9,12 +9,16 @@ sealed class ValidationResult {
 
 object Validators {
 
+    private val EMAIL_REGEX = Pattern.compile(
+        "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"
+    )
+
     fun validateEmail(email: String): ValidationResult {
         val trimmed = email.trim()
         if (trimmed.isEmpty()) {
             return ValidationResult.Error("Email address is required.")
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(trimmed).matches()) {
+        if (!EMAIL_REGEX.matcher(trimmed).matches()) {
             return ValidationResult.Error("Please enter a valid email address.")
         }
         return ValidationResult.Success
